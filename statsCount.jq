@@ -25,9 +25,14 @@ select(.eventData.queueStatisticsData !=null) |
     
     .eventData.queueStatisticsData[] |
     (.puts[0] + .puts[1] + .put1s[0] + .put1s[1]) as $putTotal | 
+    # BB added
+    (.gets[0] + .gets[1]) as $getTotal |
 
     # The "+0.0" converts each side into floats so we get non-integer rates.
-    (($putTotal + 0.0)/ (($endEpoch - $startEpoch) + 0.0)) as $rate |
+    #BB changed
+    (($putTotal + 0.0)/ (($endEpoch - $startEpoch) + 0.0)) as $putrate |
+    #BB aded Get data
+    (($getTotal + 0.0)/ (($endEpoch - $startEpoch) + 0.0)) as $getrate |
     
     {
           periodStart : $startEpoch ,
@@ -39,7 +44,13 @@ select(.eventData.queueStatisticsData !=null) |
           putNP:(.puts[0] + .put1s[0]), 
           putP: (.puts[1] + .put1s[1]),
           putTotal: $putTotal,
-          rate: $rate | roundTo2
+     #BB changed     
+          Putrate: $putrate | roundTo2,
+     #BB added get data
+          getNP:(.gets[0]), 
+          getP: (.gets[1]),
+          getTotal: $getTotal,
+          Getrate: $getrate | roundTo2
     }  
 
     # This final section might be optional but it further simplifies the
