@@ -1,5 +1,8 @@
 This will format the SYSTEM.ADMIN.STATIS.QUEUE event messages into singline JSON where you can push it to a file.
 
+Original post by Mark Taylor:
+https://marketaylor.synology.me/?p=1353
+
 You should set up a trigget to kick this off every time a message lands on the SYSTEM Event queue
 I installed this into /home/mqm/scripts/StatsCount. Then updated the sh to 'x'. table.sh is not used.
 ./statsCount.sh >> statsCount.txt
